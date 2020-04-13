@@ -47,7 +47,7 @@ def login(request):
 @csrf_exempt
 def add(request):
     user = request.user
-    if not user:
+    if not user.is_authenticated:
         return make_api_response("Please Login.", 401)   
     name = request.POST.get('name')
     hash = request.POST.get('hash')
@@ -84,7 +84,7 @@ def delete(request):
 @csrf_exempt
 def list_files(request):
     user = request.user
-    if not user:
+    if not user.is_authenticated:
         return make_api_response("Please Login.", 401)
     files = File.objects.filter(user=user).order_by('-id')
     res = []
