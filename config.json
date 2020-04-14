@@ -8,7 +8,7 @@
     "PORT": 5001
   },
   "CLIENT":{
-    "DOWNLOAD_PATH": "~/",
+    "DOWNLOAD_PATH": "Downloads",
     "USERNAME":"feng1",
     "PASSWORD":"ffddssaa"
   }
