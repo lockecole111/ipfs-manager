@@ -1,0 +1,15 @@
+{
+  "SERVER": {
+    "HOST": "localhost",
+    "PORT": 8000
+  },
+  "IPFS":{
+    "HOST":"localhost",
+    "PORT": 5001
+  },
+  "CLIENT":{
+    "DOWNLOAD_PATH": "~/",
+    "USERNAME":"feng1",
+    "PASSWORD":"ffddssaa"
+  }
+}
