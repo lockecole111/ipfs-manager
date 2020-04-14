@@ -3,13 +3,9 @@ import json
 
 class Client:
 
-    def __init__(self):
+    def __init__(self, config):
+        self.config = config
         self.cookie = None
-        try:
-            with open ('../config.json') as f:
-                self.config = json.loads(f.read())
-        except FileNotFoundError:
-            raise
         self.HOST = self.config['SERVER']['HOST']
         self.PORT = self.config['SERVER']['PORT']
         self.base_url = 'http://%s:%s/ipfs/'%(self.HOST, self.PORT)
