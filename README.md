@@ -13,8 +13,8 @@ python3 manage.py migrate
 ## Client Useage
 
 Writen in PyQt5
-
-in Project **root directory** :
+first of all,start ipfs daemon.  
+then,in Project **root directory** :
 ```shell
 python3  client.py
 ```
