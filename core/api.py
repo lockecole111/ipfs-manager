@@ -1,13 +1,13 @@
 import json
-from client import Client
-from ipfs import IPFS
+from .client import Client
+from .ipfs import IPFS
 import os
 
 class Api:
 
     def __init__(self):
         try:
-            with open ('../config.json') as f:
+            with open ('config.json') as f:
                 self.config = json.loads(f.read())
         except FileNotFoundError:
             raise
@@ -42,5 +42,5 @@ class Api:
 if __name__ == '__main__':
     api = Api()
     print(api.list_files())
-    api.download('Qmf72tqTRdc9Aexh2QnxghchNLATmutgXT1SM5gMg2YJ7g')
-
+#    api.download('Qmf72tqTRdc9Aexh2QnxghchNLATmutgXT1SM5gMg2YJ7g')
+    api.add('/home/ufo/vir.py')
