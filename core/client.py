@@ -43,7 +43,7 @@ class Client:
             res = requests.post(self.add_url, kwargs, cookies=self.cookie)
         except Exception:
             return None
-        return json.loads(res.text).get('data')
+        return res.status_code
 
     def delete(self, **kwargs):
         try:

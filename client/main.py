@@ -1,8 +1,9 @@
 import sys
 from PyQt5 import QtWidgets
 from .ui import Ui_MainWindow
-
-
+from core import Api
+import os
+import datetime
 class MyMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def __init__(self):
@@ -14,9 +15,10 @@ class MyMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionrefresh.triggered.connect(self.refresh)
         self.pushButton_3.clicked.connect(self.upload)
         self.actionupload.triggered.connect(self.upload)
-
+        self.api = Api()
         self.actionexit.triggered.connect(quit)
-        self.files = [{'hash': 'QmcpFbXkqr9vcSrfLnDiggdBY3PPxBNFrfAtqKhru4nywE', 'name': 'vir.py', 'time': 1586856883.274528, 'size': '163'}, {'hash': 'QmW9DG3Sane1rtYtBtEveFgtVsdcDD8BeV9nHth3LU1BXg', 'name': 'vim.sh', 'time': 1586856863.868105, 'size': '586'}]
+        #self.files = [{'hash': 'QmcpFbXkqr9vcSrfLnDiggdBY3PPxBNFrfAtqKhru4nywE', 'name': 'vir.py', 'time': 1586856883.274528, 'size': '163'}, {'hash': 'QmW9DG3Sane1rtYtBtEveFgtVsdcDD8BeV9nHth3LU1BXg', 'name': 'vim.sh', 'time': 1586856863.868105, 'size': '586'}]
+        self.files = self.api.list_files()
         self.refresh()
     def download(self):
         try:
@@ -26,17 +28,31 @@ class MyMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             QtWidgets.QMessageBox.information(self, "info",'未选择文件！')
             return
         print(hash)
+        self.api.download(hash)
 
     def upload(self):
-        print('111')
+        filepath, _ = QtWidgets.QFileDialog.getOpenFileName(self, "选取文件")
+       
+   
+        try:
+            res = self.api.add(filepath)
+            if res == 200:
+                QtWidgets.QMessageBox.information(self, "info",'上传成功！')
+            if res == 409:
+                QtWidgets.QMessageBox.information(self, "info",'文件已存在！')
+        except Exception:
+            pass
+
     def refresh(self):
+        self.api.update_files()
         self.tableWidget.clearContents()
+        self.files = self.api.list_files()
         self.tableWidget.setRowCount(len(self.files))
         for k,elem in enumerate(self.files):
             self.tableWidget.setItem(k, 0 ,QtWidgets.QTableWidgetItem(elem['name']))
-            self.tableWidget.setItem(k, 1 ,QtWidgets.QTableWidgetItem(elem['size']))
+            self.tableWidget.setItem(k, 1 ,QtWidgets.QTableWidgetItem(str(round(int(elem['size'])/1024,2)) +'KB'))
             self.tableWidget.setItem(k, 2 ,QtWidgets.QTableWidgetItem(elem['hash']))
-            self.tableWidget.setItem(k, 3 ,QtWidgets.QTableWidgetItem(elem['time']))
+            self.tableWidget.setItem(k, 3 ,QtWidgets.QTableWidgetItem(datetime.datetime.fromtimestamp(elem['time']).strftime("%Y-%m-%d %H:%M:%S")))
 
 
 if __name__ == '__main__':

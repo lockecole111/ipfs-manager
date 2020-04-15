@@ -21,7 +21,7 @@ class Api:
         hash = add_info['Hash']
         name = add_info['Name']
         size = add_info['Size']
-        self.client.add(name = name, hash = hash, size = size)
+        return self.client.add(name = name, hash = hash, size = size)
 
     def download(self, file_hash):
         self.ipfs.get(file_hash)

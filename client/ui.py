@@ -15,8 +15,8 @@ class Ui_MainWindow(object):
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(4)
         self.tableWidget.setHorizontalHeaderLabels(['文件名','大小','哈希','上传时间'])
-        self.tableWidget.setColumnWidth(0, 200)
-        self.tableWidget.setColumnWidth(1, 148)
+        self.tableWidget.setColumnWidth(0, 220)
+        self.tableWidget.setColumnWidth(1, 114)
         self.tableWidget.setColumnWidth(2, 400)
         self.tableWidget.setColumnWidth(3, 150)
         self.tableWidget.verticalHeader().setVisible(False)
@@ -29,10 +29,12 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(440, 410, 150, 20))
-        self.pushButton_2.setObjectName("pushButton_3")
+        self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(620, 410, 150, 20))
         self.pushButton_3.setObjectName("pushButton_3")
+
+       
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -48,8 +50,6 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionopen_new_task = QtWidgets.QAction(MainWindow)
-        self.actionopen_new_task.setObjectName("actionopen_new_task")
         self.actionexit = QtWidgets.QAction(MainWindow)
         self.actionexit.setObjectName("actionexit")
         self.actionrefresh = QtWidgets.QAction(MainWindow)
@@ -59,10 +59,11 @@ class Ui_MainWindow(object):
         self.actionupload = QtWidgets.QAction(MainWindow)
         self.actionupload.setObjectName("actionupload")
 
-        self.menu.addAction(self.actionopen_new_task)
-        self.menu.addAction(self.actionexit)
-        self.menu_2.addAction(self.actiondownload)
+        self.menu.addAction(self.actiondownload)
         self.menu_3.addAction(self.actionrefresh)
+        self.menu.addAction(self.actionupload)
+        self.menu.addAction(self.actionexit)
+
         self.menubar.addAction(self.menu.menuAction())
         self.menubar.addAction(self.menu_2.menuAction())
         self.menubar.addAction(self.menu_3.menuAction())
@@ -80,7 +81,7 @@ class Ui_MainWindow(object):
         self.menu.setTitle(_translate("MainWindow", "文件"))
         self.menu_2.setTitle(_translate("MainWindow", "选项"))
         self.menu_3.setTitle(_translate("MainWindow", "查看"))
-        self.actionopen_new_task.setText(_translate("MainWindow", "上传"))
+ 
         self.actionexit.setText(_translate("MainWindow", "退出"))
         self.actionrefresh.setText(_translate("MainWindow", "刷新"))
         self.actiondownload.setText(_translate("MainWindow", "下载"))
