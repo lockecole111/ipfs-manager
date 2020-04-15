@@ -15,6 +15,17 @@ class Api:
         self.ipfs = IPFS(self.config)
         self.client = Client(self.config)
         self.files = self.client.list_files()
+        self.client.login()
+
+    def isLogin(self):
+        return self.client.logined
+    def isConnected(self):
+        return self.client.connected    
+
+    def login(self, username, password):
+        self.client.username = username
+        self.client.password = password
+        self.client.login()
 
     def add(self, file_path):
         add_info = self.ipfs.add(file_path)
@@ -42,5 +53,4 @@ class Api:
 if __name__ == '__main__':
     api = Api()
     print(api.list_files())
-#    api.download('Qmf72tqTRdc9Aexh2QnxghchNLATmutgXT1SM5gMg2YJ7g')
     api.add('/home/ufo/vir.py')

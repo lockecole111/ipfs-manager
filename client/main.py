@@ -19,7 +19,10 @@ class MyMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionexit.triggered.connect(quit)
         #self.files = [{'hash': 'QmcpFbXkqr9vcSrfLnDiggdBY3PPxBNFrfAtqKhru4nywE', 'name': 'vir.py', 'time': 1586856883.274528, 'size': '163'}, {'hash': 'QmW9DG3Sane1rtYtBtEveFgtVsdcDD8BeV9nHth3LU1BXg', 'name': 'vim.sh', 'time': 1586856863.868105, 'size': '586'}]
         self.files = self.api.list_files()
-        self.refresh()
+
+    def isLogin(self):
+        return self.api.isLogin()
+
     def download(self):
         try:
             data = self.tableWidget.selectedItems()
@@ -36,14 +39,24 @@ class MyMainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
    
         try:
             res = self.api.add(filepath)
+            if not res:
+                QtWidgets.QMessageBox.information(self, "info",'上传失败！')
             if res == 200:
                 QtWidgets.QMessageBox.information(self, "info",'上传成功！')
+                self.refresh()
             if res == 409:
                 QtWidgets.QMessageBox.information(self, "info",'文件已存在！')
         except Exception:
-            pass
+            raise
 
     def refresh(self):
+        if not self.api.isConnected():
+            QtWidgets.QMessageBox.information(self, "info",'未连接服务器！')
+            return
+        if not self.isLogin():
+            QtWidgets.QMessageBox.information(self, "info",'用户未登录！')
+            return 
+        self.label.setText("%s：已登录"%self.api.client.username)
         self.api.update_files()
         self.tableWidget.clearContents()
         self.files = self.api.list_files()

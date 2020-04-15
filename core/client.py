@@ -15,7 +15,8 @@ class Client:
         self.delete_url = self.base_url + 'delete'
         self.username = self.config['CLIENT']['USERNAME']
         self.password = self.config['CLIENT']['PASSWORD']
-        self.login()
+        self.logined = False
+        self.connected = False
 
     def login(self):
         params = {
@@ -27,15 +28,20 @@ class Client:
             cookies = res.cookies
             print(res.text)
             self.cookie = requests.utils.dict_from_cookiejar(cookies)
+            self.connected = True
+            if res.status_code == 200:
+                self.logined = True
             return True
-        except Exception:
-            return False
+        except requests.exceptions.ConnectionError:
+            return
+        except:
+            pass
 
     def list_files(self):
         try:
             res = requests.get(self.list_url, cookies=self.cookie)
         except Exception:
-            return None
+            return []
         return json.loads(res.text).get('data')
 
     def add(self, **kwargs):
