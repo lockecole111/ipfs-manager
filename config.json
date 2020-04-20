@@ -1,1 +1,1 @@
-{"SERVER": {"PORT": 8000, "HOST": "25oh.com"}, "IPFS": {"PORT": 5001, "HOST": "localhost"}, "CLIENT": {"DOWNLOAD_PATH": "Downloads", "USERNAME": "lockecole", "PASSWORD": "ffddssaa"}}
+{"SERVER": {"PORT": 28000, "HOST": "25oh.com"}, "IPFS": {"PORT": 5001, "HOST": "localhost"}, "CLIENT": {"DOWNLOAD_PATH": "Downloads", "USERNAME": "lockecole", "PASSWORD": "ffddssaa"}}
